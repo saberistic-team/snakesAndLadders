@@ -25,11 +25,11 @@ impl<'info> SnakesAndLaddersGame<'info> {
             let rng = Rand::new(8);
             let mut pos_random = rng?.rand_range(10, 88);//get_random(10, 88, i).unwrap();
             let mut index_random = pos_random as usize;
-            while game.board[index_random].type_board != BoardState::Empty {
-            let rng2 = Rand::new(8);
-                pos_random = rng2?.rand_range(10, 88);//get_random(10, 88, i).unwrap();
-                index_random = pos_random as usize;
-            }
+            // while game.board[index_random].type_board != BoardState::Empty {
+            // let rng2 = Rand::new(8);
+            //     pos_random = rng2?.rand_range(10, 88);//get_random(10, 88, i).unwrap();
+            //     index_random = pos_random as usize;
+            // }
             game.board[index_random].type_board = BoardState::Stair;
             let rng3 = Rand::new(8);
             let val_random = rng3?.rand_range(1, 88 - pos_random);//get_random(1, 88 - pos_random, i).unwrap();

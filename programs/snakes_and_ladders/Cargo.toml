@@ -1,12 +1,12 @@
 [package]
-name = "maropele"
+name = "SnakesAndLadders"
 version = "0.1.0"
 description = "Created with Anchor"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "maropele"
+name = "snakes_and_ladders"
 
 [features]
 no-entrypoint = []

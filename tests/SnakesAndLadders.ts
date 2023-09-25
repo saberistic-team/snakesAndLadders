@@ -16,7 +16,7 @@ describe("SnakesAndLadders", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
-  const program = anchor.workspace.Maropele as Program<SnakesAndLadders>;
+  const program = anchor.workspace.SnakesAndLadders as Program<SnakesAndLadders>;
 
 
   console.log(program);
