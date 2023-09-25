@@ -36,7 +36,7 @@ describe("SnakesAndLadders", () => {
     console.log('player two:', data.playerTwo.toString());
     // console.log('rand', data.rand.toNumber());
   });
-  
+
 
 
 
@@ -52,8 +52,8 @@ describe("SnakesAndLadders", () => {
   });
 
   let flag = true;
-  for (let i = 0; i < 55; i++) {
-    it("move player!", async () => {
+  it("move player!", async () => {
+    while (flag) {
       await wait(2);
       // Add your test here.
       const tx = await program.methods.playerMoves().accounts({ game: game.publicKey }).rpc();
@@ -64,8 +64,8 @@ describe("SnakesAndLadders", () => {
       if (data.state.toString() == "PlayerOneWon" || data.state.toString() == "PlayerTwoWon") {
         flag = false;
       }
-    });
-  }
+    }
+  });
 
 
   // it("move player!", async () => {
