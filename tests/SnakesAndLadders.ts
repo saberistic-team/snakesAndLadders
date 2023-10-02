@@ -3,6 +3,7 @@ import { Program } from "@coral-xyz/anchor";
 import { SnakesAndLadders } from "../target/types/snakes_and_ladders";
 import { Keypair } from '@solana/web3.js'
 import fs from 'fs'
+import { expect } from "chai";
 function wait(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
@@ -57,40 +58,26 @@ describe("SnakesAndLadders", () => {
     const tx = await program.methods.startGame().accounts({ game: game.publicKey }).rpc();
   });
 
+
   it("move player!", async () => {
 
     const tx = await program.methods.movePlayer(player.publicKey).accounts({ game: game.publicKey }).rpc();
-    const data = await program.account.game.fetch(game.publicKey);
-    console.log('players:', data.players);
   });
 
   it("move player!", async () => {
 
     const tx = await program.methods.movePlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
-    const data = await program.account.game.fetch(game.publicKey);
-    console.log('players:', data.players);
   });
-  
-  it("move player!", async () => {
 
-    const tx = await program.methods.movePlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
-    const data = await program.account.game.fetch(game.publicKey);
-    console.log('players:', data.players);
-  });
-  
   it("move player!", async () => {
 
     const tx = await program.methods.movePlayer(ash.publicKey).accounts({ game: game.publicKey }).rpc();
     const data = await program.account.game.fetch(game.publicKey);
     console.log('players:', data.players);
+    console.log('players:', data.state.end);
   });
 
-  it("move player!", async () => {
 
-    const tx = await program.methods.movePlayer(player.publicKey).accounts({ game: game.publicKey }).rpc();
-    const data = await program.account.game.fetch(game.publicKey);
-    console.log('players:', data.players);
-  });
 
 
 

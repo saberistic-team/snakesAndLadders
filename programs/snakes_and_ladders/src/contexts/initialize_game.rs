@@ -14,8 +14,8 @@ impl<'info> InitializeGame<'_> {
         &mut self,
         player_pk: Pubkey,
         board_size: u8,
-        number_of_snakes: u32,
-        number_of_ladders: u32,
+        number_of_snakes: u8,
+        number_of_ladders: u8,
         is_private: bool,
         is_beatable: bool,
     ) -> Result<()> {
@@ -49,7 +49,7 @@ impl<'info> InitializeGame<'_> {
         msg!("game:set board item");
         msg!("game:board size:{}", game.board_size.to_string());
 
-        for i in 0..game.board_size {
+        for i in 0..game.board_size+1 {
             game.board.push(BoardItem::default());
         }
         msg!("game:one item of board {:?}", game.board[2].state_board);
@@ -59,11 +59,11 @@ impl<'info> InitializeGame<'_> {
         msg!("game:set snakes in board");
         let Self { game, .. } = self;
         for i in 0..game.number_of_snakes {
-            let pos_random = rand_range(1, (game.board_size - 1) as u64,i^555)?;
+            let pos_random = rand_range(1, (game.board_size - 1) as u64,(i^5) as u32 )?;
             msg!("game:pos random snake:{}", pos_random);
             let index_random = pos_random as usize;
             game.board[index_random].state_board = BoardState::Snake;
-            let val_random = rand_range(1, (pos_random - 1)as u64 ,i^777);
+            let val_random = rand_range(1, (pos_random - 1)as u64 ,(i^7) as u32);
             game.board[index_random].value_board = val_random? as u8;
         }
         Ok(())
@@ -73,11 +73,11 @@ impl<'info> InitializeGame<'_> {
         msg!("game:set ladders in board");
         let Self { game, .. } = self;
         for i in 0..game.number_of_ladders {
-            let pos_random = rand_range(1, (game.board_size - 1) as u64,i^333)?;
+            let pos_random = rand_range(1, (game.board_size - 1) as u64,(i^3) as u32)?;
             msg!("game:pos random ladder:{}", pos_random);
             let index_random = pos_random as usize;
             game.board[index_random].state_board = BoardState::Ladder;
-            let val_random = rand_range(1, (game.board_size as u64 - pos_random - 1)as u64 ,i^222)?;
+            let val_random = rand_range(1, (game.board_size as u64 - pos_random - 1)as u64 ,(i^2) as u32)?;
             msg!("game:val random ladder:{}", val_random);
             game.board[index_random].value_board = val_random as u8;
         }

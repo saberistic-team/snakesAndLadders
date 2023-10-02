@@ -20,8 +20,8 @@ pub mod snakes_and_ladders{
         ctx: Context<InitializeGame>,
         player: Pubkey,
         board_size:u8,
-        number_of_snakes:u32,
-        number_of_ladders:u32,
+        number_of_snakes:u8,
+        number_of_ladders:u8,
         is_private:bool,
         is_beatable:bool,
     ) -> Result<()> {
