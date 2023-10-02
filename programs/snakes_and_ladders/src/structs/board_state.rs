@@ -1,10 +1,10 @@
 use crate::*;
 
-#[derive(Copy,Clone,AnchorSerialize,AnchorDeserialize,PartialEq)]
+#[derive(Copy,Clone,AnchorSerialize,AnchorDeserialize,PartialEq,Debug)]
 pub enum BoardState {
     Empty,
     Snake,
-    Stair,
+    Ladder,
 }
 
 impl Default for BoardState {

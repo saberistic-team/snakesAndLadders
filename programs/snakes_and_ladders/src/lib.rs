@@ -3,12 +3,14 @@ use anchor_lang::prelude::*;
 mod contexts;
 mod errors;
 mod structs;
+mod utils;
 
 pub use contexts::*;
 pub use errors::ErrorCode;
 pub use structs::*;
+pub use utils::*;
 
-declare_id!("JDLsRY6pAitTHRRfXq6u1KAztc2fPAZJz7Pw2ChkwgnG");
+declare_id!("GBBsHD9uxT3ggRFDqRCreKCSWJkhyB2czhsi5Vg2nEb8");
 
 #[program]
 pub mod snakes_and_ladders{
@@ -16,18 +18,21 @@ pub mod snakes_and_ladders{
 
     pub fn initialize_game(
         ctx: Context<InitializeGame>,
-        player_one: Pubkey,
-        player_two: Pubkey,
+        player: Pubkey,
+        board_size:u32,
+        number_of_snakes:u32,
+        number_of_ladders:u32,
+        is_private:bool,
+        is_beatable:bool,
     ) -> Result<()> {
-        msg!("program:initialize_game");
-        ctx.accounts.process(player_one, player_two)
+        msg!("game:lib init");
+        ctx.accounts.process(player,board_size,number_of_snakes,number_of_ladders,is_private,is_beatable)
     }
 
-    pub fn initialize_board(ctx: Context<SnakesAndLaddersGame>) -> Result<()> {
-        ctx.accounts.process()
-    }
-
-    pub fn player_moves(ctx: Context<SnakesAndLaddersGame>) -> Result<()> {
-        ctx.accounts.move_player()
+    pub fn add_player(ctx: Context<SnakesAndLaddersGame>,
+        player: Pubkey) -> Result<()> {
+        msg!("game:lib add player");
+        ctx.accounts.add_player(player);
+        Ok(())
     }
 }

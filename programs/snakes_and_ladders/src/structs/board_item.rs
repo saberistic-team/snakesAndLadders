@@ -6,8 +6,8 @@ pub struct BoardItem {
     pub value_board: u8,
 }
 impl Default for BoardItem {
-    fn default() -> BoardItem {
-        BoardItem {
+    fn default() -> Self  {
+        Self  {
             value_board: 0,
             type_board: BoardState::Empty,
         }
