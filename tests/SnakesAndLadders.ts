@@ -10,7 +10,11 @@ function wait(seconds) {
 describe("SnakesAndLadders", () => {
 
   const bytes = JSON.parse(fs.readFileSync('player.json'))
- const player = Keypair.fromSecretKey(new Uint8Array(bytes));
+  const player = Keypair.fromSecretKey(new Uint8Array(bytes));
+  const bytes_mehdi = JSON.parse(fs.readFileSync('mehdi.json'))
+  const mehdi = Keypair.fromSecretKey(new Uint8Array(bytes_mehdi));
+  const bytes_ash = JSON.parse(fs.readFileSync('ash.json'))
+  const ash = Keypair.fromSecretKey(new Uint8Array(bytes_ash));
   console.log(player.publicKey.toBase58())
 
 
@@ -28,7 +32,7 @@ describe("SnakesAndLadders", () => {
 
 
   it("Is initialized!", async () => {
-    const tx = await program.methods.initializeGame(player.publicKey, 70,5,5,false,false)
+    const tx = await program.methods.initializeGame(player.publicKey, 70, 5, 5, false, false)
       .accounts({ game: game.publicKey })
       .signers([game])
       .rpc();
@@ -39,12 +43,54 @@ describe("SnakesAndLadders", () => {
 
 
   it("add player!", async () => {
-    
-      const tx = await program.methods.addPlayer(player.publicKey).accounts({ game: game.publicKey }).rpc();
-      const data = await program.account.game.fetch(game.publicKey);
-      console.log('players:', data.players);
+
+    const tx = await program.methods.addPlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
   });
 
+  it("add player!", async () => {
+
+    const tx = await program.methods.addPlayer(ash.publicKey).accounts({ game: game.publicKey }).rpc();
+  });
+
+  it("start game!", async () => {
+
+    const tx = await program.methods.startGame().accounts({ game: game.publicKey }).rpc();
+  });
+
+  it("move player!", async () => {
+
+    const tx = await program.methods.movePlayer(player.publicKey).accounts({ game: game.publicKey }).rpc();
+    const data = await program.account.game.fetch(game.publicKey);
+    console.log('players:', data.players);
+  });
+
+  it("move player!", async () => {
+
+    const tx = await program.methods.movePlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
+    const data = await program.account.game.fetch(game.publicKey);
+    console.log('players:', data.players);
+  });
+  
+  it("move player!", async () => {
+
+    const tx = await program.methods.movePlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
+    const data = await program.account.game.fetch(game.publicKey);
+    console.log('players:', data.players);
+  });
+  
+  it("move player!", async () => {
+
+    const tx = await program.methods.movePlayer(ash.publicKey).accounts({ game: game.publicKey }).rpc();
+    const data = await program.account.game.fetch(game.publicKey);
+    console.log('players:', data.players);
+  });
+
+  it("move player!", async () => {
+
+    const tx = await program.methods.movePlayer(player.publicKey).accounts({ game: game.publicKey }).rpc();
+    const data = await program.account.game.fetch(game.publicKey);
+    console.log('players:', data.players);
+  });
 
 
 

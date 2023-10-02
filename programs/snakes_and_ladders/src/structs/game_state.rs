@@ -3,10 +3,8 @@ use crate::*;
 #[derive(Copy,Clone,AnchorSerialize,AnchorDeserialize,PartialEq)]
 pub enum GameState {
     Waiting,
-    PlayerOne,
-    PlayerTwo,
-    PlayerOneWon,
-    PlayerTwoWon,
+    Start,
+    End
 }
 
 impl Default for GameState {

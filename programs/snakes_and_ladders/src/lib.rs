@@ -19,7 +19,7 @@ pub mod snakes_and_ladders{
     pub fn initialize_game(
         ctx: Context<InitializeGame>,
         player: Pubkey,
-        board_size:u32,
+        board_size:u8,
         number_of_snakes:u32,
         number_of_ladders:u32,
         is_private:bool,
@@ -33,6 +33,17 @@ pub mod snakes_and_ladders{
         player: Pubkey) -> Result<()> {
         msg!("game:lib add player");
         ctx.accounts.add_player(player);
+        Ok(())
+    }
+    pub fn start_game(ctx: Context<SnakesAndLaddersGame>) -> Result<()> {
+        msg!("game:lib add player");
+        ctx.accounts.start_game();
+        Ok(())
+    }
+    pub fn move_player(ctx: Context<SnakesAndLaddersGame>,
+        player: Pubkey) -> Result<()> {
+        msg!("game:lib add player");
+        _=ctx.accounts.move_player(player);
         Ok(())
     }
 }

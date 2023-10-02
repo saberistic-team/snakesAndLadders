@@ -13,7 +13,7 @@ impl<'info> InitializeGame<'_> {
     pub fn process(
         &mut self,
         player_pk: Pubkey,
-        board_size: u32,
+        board_size: u8,
         number_of_snakes: u32,
         number_of_ladders: u32,
         is_private: bool,
@@ -52,7 +52,7 @@ impl<'info> InitializeGame<'_> {
         for i in 0..game.board_size {
             game.board.push(BoardItem::default());
         }
-        msg!("game:one item of board {:?}", game.board[2].type_board);
+        msg!("game:one item of board {:?}", game.board[2].state_board);
     }
 
     pub fn set_snakes_in_board(&mut self) -> Result<()> {
@@ -62,7 +62,7 @@ impl<'info> InitializeGame<'_> {
             let pos_random = rand_range(1, (game.board_size - 1) as u64,i^555)?;
             msg!("game:pos random snake:{}", pos_random);
             let index_random = pos_random as usize;
-            game.board[index_random].type_board = BoardState::Snake;
+            game.board[index_random].state_board = BoardState::Snake;
             let val_random = rand_range(1, (pos_random - 1)as u64 ,i^777);
             game.board[index_random].value_board = val_random? as u8;
         }
@@ -76,7 +76,7 @@ impl<'info> InitializeGame<'_> {
             let pos_random = rand_range(1, (game.board_size - 1) as u64,i^333)?;
             msg!("game:pos random ladder:{}", pos_random);
             let index_random = pos_random as usize;
-            game.board[index_random].type_board = BoardState::Ladder;
+            game.board[index_random].state_board = BoardState::Ladder;
             let val_random = rand_range(1, (game.board_size as u64 - pos_random - 1)as u64 ,i^222)?;
             msg!("game:val random ladder:{}", val_random);
             game.board[index_random].value_board = val_random as u8;

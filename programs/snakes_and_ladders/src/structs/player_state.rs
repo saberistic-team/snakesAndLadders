@@ -2,7 +2,7 @@ use crate::*;
 
 #[derive(Copy,Clone,AnchorSerialize,AnchorDeserialize,PartialEq)]
 pub enum PlayerState {
-    None,
+    Waiting,
     MyTurn,
     Stop,
     Won,
@@ -10,6 +10,6 @@ pub enum PlayerState {
 
 impl Default for PlayerState {
     fn default() -> Self {
-        PlayerState::None
+        PlayerState::Waiting
     }
 }

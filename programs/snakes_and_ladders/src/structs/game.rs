@@ -5,7 +5,7 @@ pub struct Game {
     pub board: Vec<BoardItem>,
     pub state: GameState,
     pub players: Vec<Player>,
-    pub board_size: u32,
+    pub board_size: u8,
     pub number_of_snakes:u32,
     pub number_of_ladders:u32,
     pub is_private:bool,
