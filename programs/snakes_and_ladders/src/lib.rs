@@ -16,6 +16,15 @@ declare_id!("GBBsHD9uxT3ggRFDqRCreKCSWJkhyB2czhsi5Vg2nEb8");
 pub mod snakes_and_ladders{
     use super::*;
 
+    pub fn create_user(
+        ctx: Context<CreateUser>,
+        name: String,
+    ) -> Result<()> {
+        msg!("game:create user");
+        // return Err(ErrorCode::Initialized.into())
+        ctx.accounts.process(name)
+    }
+
     pub fn initialize_game(
         ctx: Context<InitializeGame>,
         player: Pubkey,
@@ -45,5 +54,15 @@ pub mod snakes_and_ladders{
         msg!("game:lib add player");
         _=ctx.accounts.move_player(player);
         Ok(())
+    }
+
+    pub fn invite_player(
+        ctx: Context<CreateInvite>,
+        game_pk: Pubkey,
+        inviter_pk: Pubkey,
+        invitee_pk: Pubkey,
+    ) -> Result<()> {
+        msg!("game:create user");
+        ctx.accounts.invite_player(game_pk,inviter_pk,invitee_pk)
     }
 }
