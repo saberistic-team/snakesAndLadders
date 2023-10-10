@@ -11,16 +11,17 @@ function wait(seconds) {
 describe("SnakesAndLadders", () => {
 
   const bytes = JSON.parse(fs.readFileSync('player.json'))
-  const player = Keypair.fromSecretKey(new Uint8Array(bytes));
+  // const player = Keypair.fromSecretKey(new Uint8Array(bytes));
   const bytes_mehdi = JSON.parse(fs.readFileSync('mehdi.json'))
   const mehdi = Keypair.fromSecretKey(new Uint8Array(bytes_mehdi));
   const bytes_ash = JSON.parse(fs.readFileSync('ash.json'))
   const ash = Keypair.fromSecretKey(new Uint8Array(bytes_ash));
-  console.log(player.publicKey.toBase58())
 
 
 
   const game = anchor.web3.Keypair.generate();
+  const player = anchor.web3.Keypair.generate();
+  console.log(player.publicKey.toBase58())
   // const playerOne = anchor.web3.Keypair.generate();
   // const playerTwo = anchor.web3.Keypair.generate();
   console.log('creating game: ', game.publicKey.toString());
@@ -31,30 +32,30 @@ describe("SnakesAndLadders", () => {
   const program = anchor.workspace.SnakesAndLadders as Program<SnakesAndLadders>;
 
 
-  // it("create user!", async () => {
-  //   const tx = await program.methods.createUser("main player")
-  //     .accounts({ user: player.publicKey })
-  //     .signers([player])
-  //     .rpc();
-  //   console.log("Your transaction signature", tx);
-  //   const user =await program.account.user.fetch(player.publicKey);
-  //   console.log("test user:",user);
-  // });
+  it("create user!", async () => {
+    const tx = await program.methods.createUser("main player")
+      .accounts({ user: player.publicKey })
+      .signers([player])
+      .rpc();
+    console.log("Your transaction signature", tx);
+    const user =await program.account.user.fetch(player.publicKey);
+    console.log("test user:",user);
+  });
 
-  // it("create user!", async () => {
-  //   const tx = await program.methods.createUser("mehdi")
-  //     .accounts({ user: mehdi.publicKey })
-  //     .signers([mehdi])
-  //     .rpc();
-  //   console.log("Your transaction signature", tx);
-  //   const user =await program.account.user.fetch(mehdi.publicKey);
-  //   console.log("test user:",user);
-  // });
+  it("create user!", async () => {
+    const tx = await program.methods.createUser("mehdi")
+      .accounts({ user: mehdi.publicKey })
+      .signers([mehdi])
+      .rpc();
+    console.log("Your transaction signature", tx);
+    const user =await program.account.user.fetch(mehdi.publicKey);
+    console.log("test user:",user);
+  });
 
 
   it("Is initialized!", async () => {
-    const tx = await program.methods.initializeGame(player.publicKey, 70, 5, 5, false, false)
-      .accounts({ game: game.publicKey })
+    const tx = await program.methods.initializeGame(20, 2, 2, false, false)
+      .accounts({ game: game.publicKey ,creator:player.publicKey})
       .signers([game])
       .rpc();
     console.log("Your transaction signature", tx);
@@ -65,7 +66,7 @@ describe("SnakesAndLadders", () => {
   const invite = anchor.web3.Keypair.generate();
 
   it("invite player", async () => {
-    const tx = await program.methods.invitePlayer(game.publicKey,player.publicKey,mehdi.publicKey)
+    const tx = await program.methods.invitePlayer()
       .accounts({ invite: invite.publicKey,game:game.publicKey,invitee:mehdi.publicKey ,inviter:player.publicKey})
       .signers([invite])
       .rpc();
@@ -76,39 +77,41 @@ describe("SnakesAndLadders", () => {
 
 
 
-  // it("add player!", async () => {
+//   it("add player!", async () => {
 
-  //   const tx = await program.methods.addPlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
-  // });
+//     const tx = await program.methods.addPlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
+//   });
 
-  // it("add player!", async () => {
+//   it("add player!", async () => {
 
-  //   const tx = await program.methods.addPlayer(ash.publicKey).accounts({ game: game.publicKey }).rpc();
-  // });
+//     const tx = await program.methods.addPlayer(ash.publicKey).accounts({ game: game.publicKey }).rpc();
+//   });
 
-  // it("start game!", async () => {
+//   it("start game!", async () => {
 
-  //   const tx = await program.methods.startGame().accounts({ game: game.publicKey }).rpc();
-  // });
+//     const tx = await program.methods.startGame().accounts({ game: game.publicKey }).rpc();
+//   });
 
+// for(let i=0;i<50;i++){
+//   it("move player!", async () => {
 
-  // it("move player!", async () => {
+//     const tx = await program.methods.movePlayer(player.publicKey).accounts({ game: game.publicKey }).rpc();
+//   });
 
-  //   const tx = await program.methods.movePlayer(player.publicKey).accounts({ game: game.publicKey }).rpc();
-  // });
+//   it("move player!", async () => {
 
-  // it("move player!", async () => {
+//     const tx = await program.methods.movePlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
+//   });
 
-  //   const tx = await program.methods.movePlayer(mehdi.publicKey).accounts({ game: game.publicKey }).rpc();
-  // });
+//   it("move player!", async () => {
 
-  // it("move player!", async () => {
-
-  //   const tx = await program.methods.movePlayer(ash.publicKey).accounts({ game: game.publicKey }).rpc();
-  //   const data = await program.account.game.fetch(game.publicKey);
-  //   console.log('players:', data.players);
-  //   console.log('players:', data.state.end);
-  // });
+//     const tx = await program.methods.movePlayer(ash.publicKey).accounts({ game: game.publicKey }).rpc();
+//     const data = await program.account.game.fetch(game.publicKey);
+//     console.log('players:', data.players);
+//     console.log('players:', data.state.end);
+//   });
+// }
+ 
 
 
 

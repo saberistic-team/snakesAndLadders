@@ -27,7 +27,6 @@ pub mod snakes_and_ladders{
 
     pub fn initialize_game(
         ctx: Context<InitializeGame>,
-        player: Pubkey,
         board_size:u8,
         number_of_snakes:u8,
         number_of_ladders:u8,
@@ -35,7 +34,7 @@ pub mod snakes_and_ladders{
         is_beatable:bool,
     ) -> Result<()> {
         msg!("game:lib init");
-        ctx.accounts.process(player,board_size,number_of_snakes,number_of_ladders,is_private,is_beatable)
+        ctx.accounts.process(board_size,number_of_snakes,number_of_ladders,is_private,is_beatable)
     }
 
     pub fn add_player(ctx: Context<SnakesAndLaddersGame>,
@@ -58,11 +57,8 @@ pub mod snakes_and_ladders{
 
     pub fn invite_player(
         ctx: Context<CreateInvite>,
-        game_pk: Pubkey,
-        inviter_pk: Pubkey,
-        invitee_pk: Pubkey,
     ) -> Result<()> {
         msg!("game:create user");
-        ctx.accounts.invite_player(game_pk,inviter_pk,invitee_pk)
+        ctx.accounts.invite_player()
     }
 }

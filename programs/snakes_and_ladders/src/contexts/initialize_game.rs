@@ -6,23 +6,24 @@ pub struct InitializeGame<'info> {
     pub game: Account<'info, Game>,
     #[account(mut)]
     pub player: Signer<'info>,
+    #[account(mut)]
+    pub creator: Account<'info, User>,
     pub system_program: Program<'info, System>,
 }
 
 impl<'info> InitializeGame<'_> {
     pub fn process(
         &mut self,
-        player_pk: Pubkey,
         board_size: u8,
         number_of_snakes: u8,
         number_of_ladders: u8,
         is_private: bool,
         is_beatable: bool,
     ) -> Result<()> {
-        let Self { game, .. } = self;
+        let Self { game, creator,.. } = self;
         msg!("game:init process");
         game.state = GameState::Waiting;
-        let new_player=create_player(player_pk);
+        let new_player=create_player(creator.key());
         game.players.push(new_player);
         game.board_size = board_size;
         game.number_of_ladders = number_of_ladders;

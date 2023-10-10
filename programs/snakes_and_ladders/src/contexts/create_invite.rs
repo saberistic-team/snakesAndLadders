@@ -20,14 +20,8 @@ impl<'info> CreateInvite<'info> {
     #[access_control(Self::constraints(&self))]
     pub fn invite_player(
         &mut self,
-        game_pk: Pubkey,
-        inviter_pk: Pubkey,
-        invitee_pk: Pubkey,
     ) -> Result<()> {
         let Self { invite, .. } = self;
-        invite.game=game_pk;
-        invite.inviter=inviter_pk;
-        invite.invitee=invitee_pk;
 
         Ok(())
     }
